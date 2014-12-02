@@ -1,0 +1,146 @@
+/**
+ * @author Jennifer Blaine
+ * @since November 28 2014
+ * The KochLine class creates the lines A, B, C, and D that will be used in the Fractal Panel class to draw the 
+ * fractal snowflakes. 
+ */
+package edu.cofc.csci221.ui;
+//KochLine extends the Line class (code comes from Dr. Munsell's Program 4)
+public class KochLine extends Line 
+{
+		//Five private instant variables are instantiated to null initially
+		private Point p1 = null;
+		private Point p2 = null;
+		private Point p3 = null;
+		private Point p4 = null;
+		private Point p5 = null;
+		/**
+		 * 
+		 * @param start
+		 * @param end
+		 * Public constructor that defines two parameters start and end Point
+		 * objects. Calls the super constructor and sets p1 and p5 to start 
+		 * and end. 
+		 * Precondition: None
+		 * Postcondition: sets instance variables p1 and p5 to parameters 
+		 * start and end. 
+		 */
+		public KochLine(Point start, Point end)
+		{
+			//call the super constructor from the Line class
+			super(start,end);
+			p1 = start;
+			p5 = end;
+		}
+		/**
+		 *A public method that gets a fractal Kochline segment A. 
+		 * Precondition: None
+		 * Postcondition: Creates a KochLine object A, a line with start and end
+		 * points p1 and p2. 
+		 * @return KochLine object A
+		 */
+		public KochLine getLineA()
+		{
+			//creates new KochLine object A 
+			KochLine A = new KochLine(p1, p2);
+			return A;
+		}
+		/**
+		 *A public method that gets a fractal Kochline segment B. 
+		 * Precondition: None
+		 * Postcondition: Creates a KochLine object B, a line with start and end
+		 * points p2 and p3. 
+		 * @return KochLine object B
+		 */
+		public KochLine getLineB()
+		{
+			//creates new KochLine object B
+			KochLine B = new KochLine(p2, p3);
+			return B;
+		}
+		/**
+		 *A public method that gets a fractal KochLine segment C. 
+		 * Precondition: None
+		 * Postcondition: Creates a KochLine object C, a line with start and end
+		 * points p3 and p4. 
+		 * @return KochLine object C
+		 */
+		public KochLine getLineC()
+		{
+			//creates new KochLine object C
+			KochLine C = new KochLine(p3, p4);
+			return C;
+		}
+		/**
+		 *A public method that gets a fractal KochLine segment D. 
+		 * Precondition: None
+		 * Postcondition: Creates a KochLine object D, a line with start and end
+		 * points p4 and p5. 
+		 * @return KochLine object A
+		 */
+		public KochLine getLineD()
+		{
+			//creates new Kochline object D
+			KochLine D = new KochLine(p4, p5);
+			return D;
+		}
+		/**
+		 * ComputeFractal computes points p2, p3, and p4's (x,y) coordinate
+		 * values using equations from Figure 1 in Dr. Munsell's Program 9.
+		 * Precondition: None
+		 * Postcondition: Values of coordinate points x1-x5 and y1-y5 are 
+		 * initialized and set to their corresponding points p2, p3, or p4.
+		 */
+		public void computeFractal()
+		{
+			//computes p2, p3, p4 (x,y) coordinate values 
+			//using equations provided in Figure 1.
+			//calling the getX and getY methods on p1 and p5 so that 
+			//all x and y values can be computed. 
+			int x1 = p1.getX();
+			int y1 = p1.getY();
+			int x5 = p5.getX();
+			int y5 = p5.getY();
+			int deltaX = x5-x1;
+			int deltaY = y5-y1;
+			
+			int x2 = x1 + (deltaX/3);
+			int y2 = y1 + (deltaY/3);
+
+			
+			
+			int x3 = (int) (((x1 + x5)/2) + ((Math.sqrt(3)*(y1-y5))/6));
+			int y3 = (int) (((y1 + y5)/2) + ((Math.sqrt(3)*(x5-x1))/6));
+			
+			
+			int x4 = x1+((2*(deltaX))/3);
+			int y4 = y1+((2*(deltaY))/3);
+			//p2-p4 become new point objects with (x,y) coordinates.
+			p2 = new Point(x2, y2);
+			p3 = new Point(x3, y3);
+			p4 = new Point(x4, y4);
+		
+		}
+		/**
+		 * A public method that evaluates if all the KochLine segments (A,B,C,D)
+		 * are valid. 
+		 * Precondition: None
+		 * Postcondition: If the isValid() method returns true for getLineA, B, C, 
+		 * and D then the method will return true. Otherwise the method will
+		 * return false.
+		 * @return Boolean
+		 */
+		public Boolean isKochLineValid()
+		{
+		//if else statement which calls the method isValid to test whether lines 
+		//A, B, C, and D are valid. 
+		if (getLineA().isValid() && getLineB().isValid() && getLineC().isValid() && getLineD().isValid())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+}
